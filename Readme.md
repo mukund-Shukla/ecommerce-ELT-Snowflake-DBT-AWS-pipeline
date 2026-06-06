@@ -6,6 +6,7 @@ End-to-end data engineering pipeline built on Medallion Architecture using AWS S
 
 ## Architecture Overview
 
+![alt text](Architecture.png)
 ```
 ┌─────────────────────────────────────────────────────────┐
 │                    DATA SOURCES                         │

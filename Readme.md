@@ -1,8 +1,39 @@
-# E-Commerce Order Analytics Pipeline
+<h1 align="center">🛒 E-Commerce Order Analytics Pipeline</h1>
 
-End-to-end data engineering pipeline built on Medallion Architecture using AWS S3, Snowflake, dbt Core, and Apache Airflow. Demonstrates incremental loading, SCD Type 2, dimensional modelling, data quality testing, and Slack alerting.
+<p align="center">
+End-to-End Data Engineering Project using AWS S3, Snowflake, dbt, Apache Airflow, and Power BI
+</p>
 
-I built an end-to-end e-commerce data engineering pipeline using AWS S3, Snowflake, dbt, and Apache Airflow following the Medallion Architecture. The pipeline starts with a Python data generator that creates customer, product, order, order item, and review data and stores it in S3 as partitioned NDJSON files. Snowflake then ingests the files into the Bronze layer using COPY INTO. In the Silver layer, dbt performs data cleaning, standardization, deduplication, and incremental processing using materializations with `unique_key` and `_extracted_at` as the watermark. For slowly changing dimensions such as customers and products, I implemented SCD Type 2 using dbt snapshots to maintain historical changes. The Gold layer contains dimensional models, fact tables, and business marts that provide insights into revenue, product performance, customer behavior, and order funnel metrics. The entire workflow is orchestrated through Airflow, which executes ingestion, transformations, snapshots, tests, and monitoring tasks on a daily schedule. Data quality is ensured through dbt generic and singular tests, while Slack notifications provide real-time alerts for failures, retries, and successful pipeline runs. This architecture demonstrates incremental loading, historical tracking, dimensional modeling, orchestration, monitoring, and analytics in a production-style data engineering environment.
+<p align="center">
+Incremental Loading • SCD Type 2 • Medallion Architecture • Data Quality Testing • Slack Monitoring
+</p>
+
+![Snowflake](https://img.shields.io/badge/Snowflake-Data_Warehouse-blue)
+![dbt](https://img.shields.io/badge/dbt-Transformations-orange)
+![Airflow](https://img.shields.io/badge/Airflow-Orchestration-green)
+![AWS](https://img.shields.io/badge/AWS-S3-yellow)
+![Docker](https://img.shields.io/badge/Docker-Containerization-blue)
+
+This project demonstrates a production-style data engineering pipeline built using the Medallion Architecture.
+The pipeline generates synthetic e-commerce data, stores it in AWS S3, ingests it into Snowflake, transforms it using dbt, and orchestrates workflows through Apache Airflow. The solution supports incremental loading, Slowly Changing Dimensions (SCD Type 2), automated testing, and real-time Slack monitoring.
+
+### Key Features
+
+✅ Incremental Data Loading
+
+✅ SCD Type 2 Historical Tracking
+
+✅ Medallion Architecture (Bronze → Silver → Gold)
+
+✅ Automated Data Quality Testing
+
+✅ Airflow Orchestration
+
+✅ Slack Alerts & Monitoring
+
+✅ Business-Focused Data Marts
+
+
 ---
 
 ## Architecture Overview
@@ -94,7 +125,6 @@ I built an end-to-end e-commerce data engineering pipeline using AWS S3, Snowfla
 └─────────────────────────────────────────────────────────┘
 ```
 
----
 
 ## How Data Flows Daily
 
@@ -250,8 +280,7 @@ After 7 days: ~8,500 orders, ~24,000 order items, ~5,350 SCD2 customer rows, ~57
 
 ---
 
-## Business Queries
- 
+## 📈 Business Questions Answered 
 
 1 — How is daily revenue trending over the last month?
 
@@ -455,8 +484,12 @@ ORDER BY
 ```
 
 
-## Author
+## 👨‍💻 Author
 
-**Mukund Shukla**  
-Data Engineer  
-[GitHub](https://github.com/mukund-Shukla/) · [LinkedIn](https://www.linkedin.com/in/mukundshukla/)
+Mukund Shukla
+
+Data Engineer | Snowflake | dbt | Airflow | AWS | Python | SQL
+
+GitHub: https://github.com/mukund-Shukla/
+
+LinkedIn: https://www.linkedin.com/in/mukundshukla/

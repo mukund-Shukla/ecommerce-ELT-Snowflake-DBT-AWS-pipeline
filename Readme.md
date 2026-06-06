@@ -8,11 +8,14 @@ End-to-End Data Engineering Project using AWS S3, Snowflake, dbt, Apache Airflow
 Incremental Loading • SCD Type 2 • Medallion Architecture • Data Quality Testing • Slack Monitoring
 </p>
 
+<p align="center">
+
 ![Snowflake](https://img.shields.io/badge/Snowflake-Data_Warehouse-blue)
 ![dbt](https://img.shields.io/badge/dbt-Transformations-orange)
 ![Airflow](https://img.shields.io/badge/Airflow-Orchestration-green)
 ![AWS](https://img.shields.io/badge/AWS-S3-yellow)
 ![Docker](https://img.shields.io/badge/Docker-Containerization-blue)
+</p>
 
 This project demonstrates a production-style data engineering pipeline built using the Medallion Architecture.
 The pipeline generates synthetic e-commerce data, stores it in AWS S3, ingests it into Snowflake, transforms it using dbt, and orchestrates workflows through Apache Airflow. The solution supports incremental loading, Slowly Changing Dimensions (SCD Type 2), automated testing, and real-time Slack monitoring.

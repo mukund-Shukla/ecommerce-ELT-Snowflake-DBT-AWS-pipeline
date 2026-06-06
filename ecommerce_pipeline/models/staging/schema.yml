@@ -1,0 +1,75 @@
+version: 2
+
+models:
+  - name: stg_customers
+    description: "Cleaned and deduped customers from Bronze"
+    columns:
+      - name: customer_id
+        tests:
+          - not_null
+          - unique
+      - name: email
+        tests:
+          - not_null
+          - unique
+      - name: updated_at
+        tests:
+          - not_null
+
+  - name: stg_products
+    description: "Cleaned and deduped products from Bronze"
+    columns:
+      - name: product_id
+        tests:
+          - not_null
+          - unique
+      - name: price
+        tests:
+          - not_null
+      - name: category
+        tests:
+          - not_null
+
+
+  - name: stg_orders
+    description: "Incremental orders — new rows only each run"
+    columns:
+      - name: order_id
+        tests:
+          - not_null
+          - unique
+      - name: customer_id
+        tests:
+          - not_null
+      - name: total_amount
+        tests:
+          - not_null
+      - name: status
+        tests:
+          - accepted_values:
+              values: ["pending","confirmed","shipped","delivered","cancelled"]
+
+  - name: stg_order_items
+    description: "Incremental order items — line level grain"
+    columns:
+      - name: order_item_id
+        tests:
+          - not_null
+          - unique
+      - name: order_id
+        tests:
+          - not_null
+      - name: product_id
+        tests:
+          - not_null
+
+  - name: stg_reviews
+    description: "Incremental reviews from delivered orders"
+    columns:
+      - name: review_id
+        tests:
+          - not_null
+          - unique
+      - name: rating
+        tests:
+          - not_null

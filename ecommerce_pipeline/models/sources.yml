@@ -1,0 +1,29 @@
+version: 2
+
+sources:
+  - name: bronze
+    database: BRONZE_DB
+    schema: RAW
+    description: "Raw ingested data from S3 via COPY INTO"
+
+    freshness:
+      warn_after: {count: 25, period: hour}
+      error_after: {count: 48, period: hour}
+
+    loaded_at_field: _extracted_at
+
+    tables:
+      - name: raw_customers
+        description: "Full snapshot of customers loaded daily"
+
+      - name: raw_products
+        description: "Full snapshot of products loaded daily"
+
+      - name: raw_orders
+        description: "Incremental orders loaded daily"
+
+      - name: raw_order_items
+        description: "Incremental order items loaded daily"
+
+      - name: raw_reviews
+        description: "Incremental reviews loaded daily"

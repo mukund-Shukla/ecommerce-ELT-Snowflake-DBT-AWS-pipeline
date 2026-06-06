@@ -1,0 +1,137 @@
+version: 2
+
+models:
+  - name: dim_customers
+    description: "SCD2 customer dimension from snapshots"
+    columns:
+      - name: customer_key
+        tests:
+          - not_null
+      - name: customer_id
+        tests:
+          - not_null
+      - name: email
+        tests:
+          - not_null
+      - name: is_current
+        tests:
+          - not_null
+
+  - name: dim_products
+    description: "SCD2 product dimension from snapshots"
+    columns:
+      - name: product_key
+        tests:
+          - not_null
+      - name: product_id
+        tests:
+          - not_null
+      - name: price
+        tests:
+          - not_null
+      - name: is_current
+        tests:
+          - not_null
+
+  - name: dim_date
+    description: "Date dimension spine 2024-2027"
+    columns:
+      - name: date_key
+        tests:
+          - not_null
+          - unique
+      - name: full_date
+        tests:
+          - not_null
+          - unique
+
+  - name: fct_orders
+    description: "Order level fact table incremental"
+    columns:
+      - name: order_id
+        tests:
+          - not_null
+          - unique
+      - name: customer_id
+        tests:
+          - not_null
+      - name: total_amount
+        tests:
+          - not_null
+      - name: status
+        tests:
+          - accepted_values:
+              values: ["pending","confirmed","shipped","delivered","cancelled"]
+
+  - name: fct_order_items
+    description: "Line item level fact table incremental"
+    columns:
+      - name: order_item_id
+        tests:
+          - not_null
+          - unique
+      - name: order_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('fct_orders')
+              field: order_id
+      - name: product_id
+        tests:
+          - not_null
+
+
+  - name: fct_reviews
+    description: "Review level fact table incremental"
+    columns:
+      - name: review_id
+        tests:
+          - not_null
+          - unique
+      - name: order_id
+        tests:
+          - not_null
+      - name: product_id
+        tests:
+          - not_null
+      - name: rating
+        tests:
+          - not_null
+      - name: sentiment
+        tests:
+          - accepted_values:
+              values: ["positive","neutral","negative"]
+  - name: mart_revenue_summary
+    description: "Daily revenue by category"
+    columns:
+      - name: gross_revenue
+        tests:
+          - not_null
+
+  - name: mart_product_performance
+    description: "Product level sales and review metrics"
+    columns:
+      - name: product_id
+        tests:
+          - not_null
+          - unique
+
+  - name: mart_customer_orders
+    description: "Customer LTV and RFM segmentation"
+    columns:
+      - name: customer_id
+        tests:
+          - not_null
+          - unique
+      - name: customer_segment
+        tests:
+          - accepted_values:
+              values: ["Champion","Loyal","Recent","At Risk","Needs Attention"]
+
+  - name: mart_order_funnel
+    description: "Daily order status funnel"
+    columns:
+      - name: order_day
+        tests:
+          - not_null
+          - unique

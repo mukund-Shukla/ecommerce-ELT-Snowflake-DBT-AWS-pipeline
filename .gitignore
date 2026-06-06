@@ -15,3 +15,4 @@ ingestion/.last_run
 logs/
 .last_run/
 .logs
+Decisions.md

@@ -253,6 +253,7 @@ After 7 days: ~8,500 orders, ~24,000 order items, ~5,350 SCD2 customer rows, ~57
 
 1 — How is daily revenue trending over the last month?
 
+```sql
 SELECT
     order_date,
     SUM(gross_revenue)          AS total_revenue,
@@ -263,11 +264,12 @@ FROM GOLD_DB.MARTS.mart_revenue_summary
 WHERE order_date >= DATEADD('day', -30, CURRENT_DATE())
 GROUP BY order_date
 ORDER BY order_date DESC;
-
+```
 
 
 2 — Which products are driving the most revenue and are they profitable?
 
+```sql
 SELECT
     product_name,
     category,
@@ -278,11 +280,11 @@ SELECT
 FROM GOLD_DB.MARTS.mart_product_performance
 ORDER BY total_revenue DESC
 LIMIT 10;
-
+```
 
 3 — How are customers distributed across segments and what is each segment worth?
 
-
+```sql
 SELECT
     customer_segment,
     COUNT(*)                    AS total_customers,
@@ -292,10 +294,11 @@ SELECT
 FROM GOLD_DB.MARTS.mart_customer_orders
 GROUP BY customer_segment
 ORDER BY avg_lifetime_value DESC;
-
+```
 
 4 - Which products had price changes and what was the full price history?
 
+```sql
 SELECT
     product_id,
     title,
@@ -315,8 +318,11 @@ WHERE product_id IN (
     HAVING COUNT(*) > 1
 )
 ORDER BY product_id, dbt_valid_from;
+```
 
 5 -  Which categories are growing month over month and by how much?
+
+```sql
 SELECT
     year,
     month,
@@ -333,11 +339,12 @@ SELECT
 FROM GOLD_DB.MARTS.mart_revenue_summary
 GROUP BY year, month, month_name, category
 ORDER BY year DESC, month DESC, monthly_revenue DESC;
-
+```
 
 
 -- What was the price of the ordered item at the time of order vs current price?
 
+```sql
 SELECT
     oi.order_item_id,
     oi.order_id,
@@ -350,6 +357,7 @@ LEFT JOIN dim_products p_current
     ON oi.product_id = p_current.product_id
     AND p_current.is_current = TRUE
 LIMIT 20;
+```
 
 ## Author
 
